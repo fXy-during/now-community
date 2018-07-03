@@ -22,7 +22,7 @@ export default class pageComponent extends Component {
     // this.sideMap = [{"topic", "author", "follow"];
     this.sideMap = [
       {
-        name: "topic",
+        name: "articleOutline",
         props: {}
       },
       {

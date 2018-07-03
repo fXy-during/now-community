@@ -3,18 +3,45 @@ import React, { PureComponent } from "react";
 // import Report from './report';
 import "./index.scss";
 
+const headingDescription = [
+  {
+    level: 1,
+    text: "#"
+  },
+  {
+    level: 2,
+    text: "##"
+  },
+  {
+    level: 1,
+    text: "#"
+  }
+];
+
 export default class ArticleOutline extends PureComponent {
+  renderOutline(headingDescription) {
+    // 目录遍历算法
+    return (
+      <ul>
+        <li>
+          1
+          <ul>
+            <li>2</li>
+            <li>2</li>
+          </ul>
+        </li>
+      </ul>
+    );
+  }
   render() {
     const {
-      topic = ["HTML", "CSS", "JS", "React Native"],
-      title = "话题分类"
+      headingDescription = headingDescription,
+      title = "目录"
     } = this.props;
     return (
       <div className="side-item-wrapper">
         <div className="side-item-title"> {title} </div>{" "}
-        <div className="side-topic">
-          {topic.map(item => <div className="side-topic-item"> {item} </div>)}{" "}
-        </div>{" "}
+        {this.renderOutline(headingDescription)}
       </div>
     );
   }
