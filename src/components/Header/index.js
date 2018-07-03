@@ -4,27 +4,27 @@ import React, { PureComponent, Component } from "react";
 
 // TODO
 // Modal 弹窗出现后右侧下拉条消失 导致banner移动
-import Modal from "antd/lib/Modal";
-import "antd/lib/Modal/style/css";
+import Modal from "antd/lib/modal";
+import "antd/lib/modal/style/css";
 
 import "./index.scss";
 
 const tabMap = [
     {
         text: "首页",
-        path: "/home"
+        path: "/home.html"
     },
     {
         text: "博客",
-        path: "/blog"
+        path: "/blog.html"
     },
     {
         text: "团队生活",
-        path: "/teamlife"
+        path: "/teamlife.html"
     },
     {
         text: "关于我们",
-        path: "/about"
+        path: "/about.html"
     }
 ];
 
@@ -53,8 +53,8 @@ class Header extends PureComponent {
         let isLoginProfile =
             flag != undefined ? flag : this.state.isLoginProfile;
         this.setState({
-            isLoginProfile:isLoginProfile,
-            visible: true,
+            isLoginProfile: isLoginProfile,
+            visible: true
         });
     }
     changeProfile(bool) {
@@ -137,12 +137,20 @@ class Header extends PureComponent {
                                     <li
                                         key={path}
                                         className={
-                                            path.slice(1) === selected
+                                            path.indexOf(selected) >= 0
                                                 ? "nav-selected"
                                                 : ""
                                         }
                                     >
-                                        <a href={path}>{text}</a>
+                                        <a
+                                            href={
+                                                path === "/home.html"
+                                                    ? "/"
+                                                    : path
+                                            }
+                                        >
+                                            {text}
+                                        </a>
                                     </li>
                                 );
                             })}
@@ -183,9 +191,7 @@ class Header extends PureComponent {
                 >
                     <div className="lr-container">
                         <section className="lr-left">
-                            <img
-                                src={require("../../assets/images/LR_left.png")}
-                            />
+                            <img src={require("../../assets/images/LR_left.png")} />
                         </section>
                         <section className="lr-right">
                             <div className="lr-box">

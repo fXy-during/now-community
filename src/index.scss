@@ -1,0 +1,105 @@
+@import "./assets/css/reset";
+@import "./assets/css/mixin";
+// @import "./icon.scss";
+html {
+    width: 100%;
+}
+
+body {
+    position: relative;
+    width: 100%;
+    .page-container {
+        background: #f8f8f8;
+        display: flex;
+        flex-direction: column;
+        align-items: center; // justify-content: center;
+        // background-image: url("./assets/images/ivweb.jpg");
+        background-size: cover; // min-height: 2420px;
+        width: 100%;
+    }
+    .content-btn {
+        cursor: pointer;
+        margin-top: 40px;
+        width: 100%;
+        font-size: 16px;
+        color: #fff;
+        padding: 18px 0;
+        background-color: #327aff;
+        text-align: center;
+    }
+}
+
+@mixin clearfix {
+    &::after {
+        content: " ";
+        visibility: hidden;
+        display: block;
+        font-size: 0;
+        clear: both;
+        height: 0;
+    }
+}
+
+.container {
+    width: $contentWidth;
+    margin-left: auto;
+    margin-right: auto;
+    @include clear;
+    min-width: $contentMinWidth;
+}
+
+.title-attention {
+    position: relative;
+    &::before {
+        content: "";
+        border: 2px solid #000;
+        height: 16px;
+        position: absolute;
+        left: -40px;
+        top: 3px;
+    }
+    &::after {
+        content: " \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ "; // content: "after ";
+        // border: 2px solid #000;
+        color: rgba(235, 235, 235, 0.8); // color: #666;
+        font-size: 18px;
+        z-index: 999;
+        width: 120px; // height: 18px;
+        position: absolute;
+        left: 80px;
+        top: -2px;
+    }
+}
+
+.icon {
+    display: inline-block;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+ul {
+    list-style-type: none;
+}
+
+a {
+    color: #fff;
+    text-decoration: none;
+}
+
+input {
+    border-width: 0;
+    width: 230px;
+    outline: none;
+    padding: 5px;
+    margin: 10px;
+    box-sizing: content-box;
+}
+
+button {
+    color: #fff;
+    background-color: #327aff;
+    border-radius: 10px;
+    outline: none;
+    border-width: 0;
+    margin: 16px 0;
+}

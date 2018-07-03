@@ -12,7 +12,7 @@ export default class FollowUs extends PureComponent {
                 <div className="side-follow">
                     <div className="side-qq-code">
                         <img
-                            src={require("/assets/images/qqcode.png")}
+                            src={require("../../../assets/images/qqcode.png")}
                         />
                         <span>QQ扫码加入ivweb团队公众群</span>
                     </div>
