@@ -1,0 +1,90 @@
+@import "../../../Layout/Main/mainCommon.scss";
+@mixin flex {
+    display: flex;
+    align-items: center;
+}
+.side-item-wrapper {
+    padding: 15px 20px;
+    margin: 20px 0;
+    // TODO
+    background-color: #fff;
+    &:first-child {
+        margin-top: 0;
+    }
+    .side-item-title {
+        padding: 10px 0;
+        padding-bottom: 15px;
+        // TODO
+        @include MainTitle;
+    }
+}
+
+.side-topic {
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    margin: 0 -5px;
+    .side-topic-item {
+        margin: 5px;
+        color: #5691fe;
+        font-size: 16px;
+        padding: 10px 15px;
+        background-color: #f8f8f8;
+        text-align: center;
+        min-width: 70px;
+        border-radius: 24px;
+    }
+}
+.side-open-source {
+    margin: 0 auto;
+    img {
+        width: 300px;
+        height: 70px;
+    }
+    .side-open-item {
+        img {
+            margin: 8px 0;
+            &:first-child {
+                margin-top: 0;
+            }
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
+        padding-bottom: 21px;
+        border-bottom: 1px solid #eeeeee;
+    }
+    .side-open-banner {
+        padding-top: 21px;
+        img {
+            width: 300px;
+            height: 180px;
+        }
+    }
+}
+.side-follow {
+    font-size: 16px;
+    color: #acacac;
+    .side-qq-code {
+        @include flex;
+        flex-direction: column;
+        img {
+            margin-bottom: 10px;
+        }
+    }
+    .side-follow-other {
+        @include flex;
+        justify-content: space-around;
+        .side-follow-other-item {
+            margin-top: 13px;
+            width: 77px;
+            height: 77px;
+            background-color: #f8f8f8;
+            @include flex;
+            justify-content: center;
+        }
+
+    }
+}

@@ -1,0 +1,27 @@
+@import "./mainCommon.scss";
+
+
+#main-container {
+    // border: 1px solid #666;
+    display: flex;
+    align-items: flex-start;
+    min-height: 1300px;
+    justify-content: space-between;
+
+    .main-left,
+    .main-right {
+        box-sizing: border-box;
+    }
+    .main-right {
+        margin-left: 20px;
+        flex-basis: 340px;
+    }
+    .main-left {
+        flex-basis: 840px;
+        padding: 26px 40px;
+        background-color: #fff;
+    }
+    .main-title {
+        @include MainTitle;
+    }
+}

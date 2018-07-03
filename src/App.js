@@ -1,153 +1,90 @@
 import React, { Component } from "react";
-import "./App.css";
-import marked from "marked";
-import hljs from "highlight";
-import "github-markdown-css/github-markdown.css";
-import simplemde from "simplemde";
-// https://www.cnblogs.com/djtao/p/6224399.html
+// import { getActivityConfig } from "./actions";
+// import Report from './report';
+import "./index.scss";
 
-class App extends Component {
+import Header from "/modules/components/Header";
+import Footer from "/modules/components/Footer";
+// import Banner from "/modules/components/Banner";
+// import Weekly from "/modules/components/Weekly";
+// import ArticleAbbre from "/modules/components/ArticleAbbre";
+import Content from "./Layout/Content";
+import Main from "./Layout/Main";
+// import articleMap from "./articleMap";
+
+// const weeklyArtical = {
+//   title: "React-Native通用化建设与性能优化",
+//   article: `Sass 有两种语法格式。首先是 SCSS (Sassy CSS) —— 也是本文示例所使用的格式 —— 这种格式仅在 CSS3 语法的基础上进行拓展，所有 CSS3 语法在 SCSS 中都是通用的，同时加入 Sass 的特色功能。此外，SCSS 也支持大多数 CSS hacks 写法以及浏览器前缀写法 (vendor-specific syntax)，以及早期的 IE 滤镜写法。这种格式以 .scss 作为拓展名。
+//     另一种也是最早的 Sass 语法格式，被称为缩进格式 (Indented Sass) 通常简称 "Sass"，是一种简化格式。它使用 “缩进” 代替 “花括号” 表示属性属于某个选择器，用 “换行” 代替 “分号” 分隔属性，很多人认为这样做比 SCSS 更容易阅读，书写也更快速。缩进格式也可以使用 Sass 的全部功能，只是与 SCSS 相比个别地方采取了不同的表达方式，具体请查看 the indented syntax reference。这种格式以 .sass 作为拓展名。`
+// };
+
+export default class pageComponent extends Component {
   constructor() {
     super(...arguments);
     this.state = {
-      oText: {
-        __html: ""
-      },
-      tText: {
-        __html: ""
-      }
+      isFlow: false
     };
-  }
-  componentDidMount() {
-    //
+    // Report.init(this);
   }
 
-  oTextChange(e) {
-    const value = e.target.value,
-      tText = marked(value, getMDRenderOption()),
-      oText = marked(value, getMDEditOption());
-    // console.log("hljs.highlightAuto(tText).value)
-    this.setState({
-      oText: {
-        __html: oText
-      },
-      tText: {
-        __html: tText
+  componentDidMount() {
+    this.onScoll();
+    window.addEventListener("scroll", this.onScoll.bind(this));
+  }
+
+  onScoll() {
+    const scrollTop = document.documentElement.scrollTop;
+    if (scrollTop === 0) {
+      this.check();
+      return;
+    }
+    clearTimeout(this.timmer);
+
+    this.timmer = setTimeout(() => {
+      this.check();
+    }, 20);
+  }
+  check() {
+    const { isFlow } = this.state;
+    if (document.documentElement.scrollTop > 0) {
+      if (!isFlow) {
+        this.setState({
+          isFlow: true
+        });
       }
-    });
-    // ReactDOM.render(tText, this.target);
+    } else {
+      if (isFlow) {
+        this.setState({
+          isFlow: false
+        });
+      }
+    }
+  }
+  componentWillMount() {
+    // this.getLegoConfig();
+
+    window.removeEventListener("scroll", this.onScoll);
   }
 
   render() {
+    const { activityConfig } = this.props,
+      { isFlow } = this.state;
+
     return (
-      <div className="App">
-        <section className="edit-input">
-          <textarea onChange={this.oTextChange.bind(this)} />
-          <div
-            className="edit-fix-input"
-            dangerouslySetInnerHTML={this.state.oText}
-          />
-        </section>{" "}
-        <section className="edit-preview">
-          <div
-            className="markdown-body"
-            id="md-target"
-            dangerouslySetInnerHTML={this.state.tText}
-          />{" "}
-        </section>{" "}
+      <div className="page-container">
+        <Header selected="home" isFlow={isFlow} />
+        <Banner />
+        <Content>
+          <Weekly {...weeklyArtical} />
+          <Main>
+            {articleMap.map(article => (
+              <ArticleAbbre {...article} key={article.id} />
+            ))}
+            <div className="content-btn">查看全部文章</div>
+          </Main>
+        </Content>
+        <Footer />
       </div>
     );
   }
-}
-// <div>{this.state.tText}</div>
-
-export default App;
-
-function getMDRenderOption() {
-  let opt = {},
-    rendererMD = new marked.Renderer();
-  rendererMD.image = function(src) {
-    console.log("text,level", src);
-    return `<figure><img src=${src} alt="test" /></figure>`;
-  };
-
-  return {
-    renderer: rendererMD,
-    highlight: function(code) {
-      return hljs.highlightAuto(code).value;
-    },
-    gfm: true,
-    tables: true,
-    breaks: false,
-    pedantic: false,
-    sanitize: false,
-    smartLists: true,
-    smartypants: false
-  };
-}
-
-function getMDEditOption() {
-  let rendererMD = new marked.Renderer();
-  rendererMD.heading = function(text, level) {
-    // console.log("text,level fail?", text, level);
-    let escapedText = text.toLowerCase().replace(/[^\w]+/g, "-"),
-      _level = "######".slice(0, level);
-    // [].full
-    return `<p> <span class="headding-prefix">${_level} ${text} </span></p>`;
-  };
-  rendererMD.blockquote = function(string) {
-    // <p><a href="https://github.com/feflow/feflow">Feflow</a></p>
-    console.log("blockquote string", string);
-    // let escapedText = text.toLowerCase().replace(/[^\w]+/g, "-"),
-    // _level = "######".slice(0, level);
-    // [].full
-
-    // let doms = parseDom(string);
-    // console.log(doms);
-    return `<p>dd</p>`;
-  };
-  rendererMD.codespan = function(code) {
-    // <p><a href="https://github.com/feflow/feflow">Feflow</a></p>
-    console.log("codespan string", code);
-    // let escapedText = text.toLowerCase().replace(/[^\w]+/g, "-"),
-    // _level = "######".slice(0, level);
-    // [].full
-
-    // let doms = parseDom(string);
-    // console.log(doms);
-    return `<code class="code">\`${code}\` </code>`;
-  };
-
-  rendererMD.listitem = function(text) {
-    // <p><a href="https://github.com/feflow/feflow">Feflow</a></p>
-    console.log("listitem string", text);
-    // let escapedText = text.toLowerCase().replace(/[^\w]+/g, "-"),
-    // _level = "######".slice(0, level);
-    // [].full
-
-    // let doms = parseDom(string);
-    // console.log(doms);
-    return `<p><span  class="headding-prefix">*</span> listitem </p>`;
-  };
-  return {
-    renderer: rendererMD,
-    highlight: function(code) {
-      return hljs.highlightAuto(code).value;
-    },
-    gfm: true,
-    tables: true,
-    breaks: false,
-    pedantic: false,
-    sanitize: false,
-    smartLists: true,
-    smartypants: false
-  };
-}
-
-function parseDom(arg) {
-  var objE = document.createElement("div");
-
-  objE.innerHTML = arg;
-
-  return objE.childNodes;
 }
