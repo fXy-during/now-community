@@ -17,15 +17,17 @@ class App extends Component {
         __html: ""
       }
     };
+
+    this.headingDescription = headingDescriptionFn();
+    this.MDEditOption = getMDEditOption(this.headingDescription);
+    this.MDRenderOption = getMDRenderOption();
   }
-  componentDidMount() {
-    //
-  }
+  componentDidMount() {}
 
   oTextChange(e) {
     const value = e.target.value,
-      tText = marked(value, getMDRenderOption()),
-      oText = marked(value, getMDEditOption());
+      tText = marked(value, this.MDRenderOption),
+      oText = marked(value, this.MDEditOption);
     // console.log("hljs.highlightAuto(tText).value)
     this.setState({
       oText: {
@@ -39,6 +41,7 @@ class App extends Component {
   }
 
   render() {
+    console.log(this.headingDescription.getHeading());
     return (
       <div className="App">
         <section className="edit-input">
@@ -86,12 +89,22 @@ function getMDRenderOption() {
   };
 }
 
+const headingDescriptionFn = () => {
+  const store = [];
+  return {
+    pushHeading: (heading, level) => this.store.push({ heading, level }),
+    getHeading: () => this.store
+  };
+};
+
 function getMDEditOption() {
   let rendererMD = new marked.Renderer();
+
   rendererMD.heading = function(text, level) {
     // console.log("text,level fail?", text, level);
-    let escapedText = text.toLowerCase().replace(/[^\w]+/g, "-"),
-      _level = "######".slice(0, level);
+    // let escapedText = text.toLowerCase().replace(/[^\w]+/g, "-"),
+    let _level = "######".slice(0, level);
+    headingDescription.pushHeading(text, level);
     // [].full
     return `<p> <span class="headding-prefix">${_level} ${text} </span></p>`;
   };
