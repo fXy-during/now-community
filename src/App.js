@@ -1,10 +1,11 @@
 import React, { Component } from "react";
-import "./App.css";
+// import "./App.css";
 import marked from "marked";
 import hljs from "highlight";
-import "github-markdown-css/github-markdown.css";
-import simplemde from "simplemde";
+// import "github-markdown-css/github-markdown.css";
+import SimpleMDE from "simplemde";
 // https://www.cnblogs.com/djtao/p/6224399.html
+import "simplemde/dist/simplemde.min.css";
 
 class App extends Component {
   constructor() {
@@ -19,7 +20,27 @@ class App extends Component {
     };
   }
   componentDidMount() {
-    //
+    // 编辑器
+    this.smde = new SimpleMDE({
+      element: document.getElementById("editor").childElementCount,
+      autofocus: true,
+      autosave: true,
+      previewRender: function(plainText) {
+        return marked(plainText, {
+          renderer: new marked.Renderer(),
+          gfm: true,
+          pedantic: false,
+          sanitize: false,
+          tables: true,
+          breaks: true,
+          smartLists: true,
+          smartypants: true,
+          highlight: function(code) {
+            return hljs.highlightAuto(code).value;
+          }
+        });
+      }
+    });
   }
 
   oTextChange(e) {
@@ -42,7 +63,7 @@ class App extends Component {
     return (
       <div className="App">
         <section className="edit-input">
-          <textarea onChange={this.oTextChange.bind(this)} />
+          <textarea id="editor" onChange={this.oTextChange.bind(this)} />
           <div
             className="edit-fix-input"
             dangerouslySetInnerHTML={this.state.oText}
