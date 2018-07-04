@@ -21,6 +21,14 @@ const headingDescription = [
 export default class ArticleOutline extends PureComponent {
   renderOutline(headingDescription) {
     // 目录遍历算法
+    // headingDescription.reduce((ori,item,idx,arr)=>{
+    //   if (arr[idx - 1]== undefined ){
+    //     ori.push([item])
+    //   } else if (item.level < arr[idx - 1]) {
+
+    //   }
+    // },[])
+    
     return (
       <ul>
         <li>

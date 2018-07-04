@@ -1,0 +1,95 @@
+@mixin flex {
+    display: flex;
+    align-items: center;
+}
+
+@mixin flex-start {
+    display: flex;
+    align-items: flex-start;
+}
+
+@mixin input {
+    background-color: #f8f8f8;
+    padding: 17px;
+    border-width: 0;
+    outline: none;
+    word-wrap: break-word;
+    resize: none;
+}
+
+#comment-container {
+    .comment-form {
+        margin-top: 30px;
+        @include flex-start;
+        padding-bottom: 50px;
+        border-bottom: 1px solid #eee;
+        .comment-form-avatar {
+            margin-right: 16px; // flex: 1 1;  
+            img {
+                width: 61px;
+                height: 61px;
+            }
+        }
+        .comment-input {
+            flex: 5 1;
+            textarea {
+                width: 100%;
+                @include input;
+            }
+        }
+        .comment-action {
+            margin-top: 18px;
+            @include flex;
+            input {
+                // flex: 483 1;
+                @include input;
+                margin-right: 25px;
+                width: 485px;
+                box-sizing: 485px;
+            }
+            .comment-sumbit {
+                // flex: 2 1;
+                width: 150px;
+                height: 50px;
+                background-color: #327aff;
+                border-radius: 0;
+                color: #fff;
+            }
+        }
+    }
+    .comment-title {
+        padding: 25px 0;
+        font-size: 18px;
+        color: #000;
+    }
+    .comment-item-wrapper {
+        @include flex-start; // @include flex;
+        justify-content: space-between;
+        margin-bottom: 20px; // margin-top: 10px;
+        .comment-img {
+            margin-right: 16px; // flex: 1 1;  
+            img {
+                width: 61px;
+                height: 61px;
+            }
+        }
+        .comment-text {
+            flex: 4 1;
+            font-size: 16px;
+            color: #797979;
+            p {
+                margin-bottom: 5px;
+                &:first-child {
+                    font-weight: 600;
+                    color: #333;
+                }
+            } // @include flex;
+            // display: flex;
+            // flex-direction: column;
+            // align-items: center;
+        }
+        .comment-time {
+            color: #999;
+        }
+    }
+}

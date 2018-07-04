@@ -1,0 +1,48 @@
+@mixin flex {
+    display: flex;
+    align-items: center;
+}
+
+.article-meta {
+    @include flex;
+    justify-content: flex-start;
+    margin: 7px -5px;
+    span {
+        margin: 0 5px;
+        &:last-child {
+            margin: 0 10px;
+        }
+    }
+}
+
+.article-button {
+    margin-top: 20px;
+    @include flex;
+    justify-content: space-between;
+    .article-button-action-wrapper {
+        @include flex;
+        .article-button-item {
+            @include flex;
+            margin: 0 20px;
+            &:first-child {
+                margin-left: 0;
+            }
+        }
+    }
+    .comment,
+    .like,
+    .share {
+        width: 19px;
+        height: 19px;
+        margin-right: 10px;
+    }
+    .comment {
+        background-image: url("../../assets/images/comment.png");
+    }
+    .like {
+        background-image: url("../../assets/images/like.png");
+    }
+    .share {
+        background-image: url("../../assets/images/share.png");
+    }
+}

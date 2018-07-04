@@ -7,7 +7,8 @@ import "./index.scss";
 
 import Header from "./components/Header";
 import Footer from "./components/Footer";
-
+import Article from "./components/Article";
+import Comment from "./components/comment"
 import Content from "./Layout/Content";
 import Main from "./Layout/Main";
 
@@ -93,7 +94,8 @@ export default class pageComponent extends Component {
             changeTab={this.changeTab.bind(this)}
             isHome={selected === "home"}
           >
-            article
+            <Article />
+            <Comment  />
           </Main>
         </Content>
         <Footer />
