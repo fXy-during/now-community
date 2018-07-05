@@ -22,7 +22,7 @@ class App extends Component {
     this.MDEditOption = getMDEditOption(this.headingDescription);
     this.MDRenderOption = getMDRenderOption();
   }
-  componentDidMount() {}
+  componentDidMount() { }
 
   oTextChange(e) {
     const value = e.target.value,
@@ -69,14 +69,14 @@ export default App;
 function getMDRenderOption() {
   let opt = {},
     rendererMD = new marked.Renderer();
-  rendererMD.image = function(src) {
+  rendererMD.image = function (src) {
     console.log("text,level", src);
     return `<figure><img src=${src} alt="test" /></figure>`;
   };
 
   return {
     renderer: rendererMD,
-    highlight: function(code) {
+    highlight: function (code) {
       return hljs.highlightAuto(code).value;
     },
     gfm: true,
@@ -92,15 +92,15 @@ function getMDRenderOption() {
 const headingDescriptionFn = () => {
   const store = [];
   return {
-    pushHeading: (heading, level) => this.store.push({ heading, level }),
-    getHeading: () => this.store
+    pushHeading: (heading, level) => store.push({ heading, level }),
+    getHeading: () => store
   };
 };
-
+const headingDescription = headingDescriptionFn()
 function getMDEditOption() {
   let rendererMD = new marked.Renderer();
 
-  rendererMD.heading = function(text, level) {
+  rendererMD.heading = function (text, level) {
     // console.log("text,level fail?", text, level);
     // let escapedText = text.toLowerCase().replace(/[^\w]+/g, "-"),
     let _level = "######".slice(0, level);
@@ -108,7 +108,7 @@ function getMDEditOption() {
     // [].full
     return `<p> <span class="headding-prefix">${_level} ${text} </span></p>`;
   };
-  rendererMD.blockquote = function(string) {
+  rendererMD.blockquote = function (string) {
     // <p><a href="https://github.com/feflow/feflow">Feflow</a></p>
     console.log("blockquote string", string);
     // let escapedText = text.toLowerCase().replace(/[^\w]+/g, "-"),
@@ -119,7 +119,7 @@ function getMDEditOption() {
     // console.log(doms);
     return `<p>dd</p>`;
   };
-  rendererMD.codespan = function(code) {
+  rendererMD.codespan = function (code) {
     // <p><a href="https://github.com/feflow/feflow">Feflow</a></p>
     console.log("codespan string", code);
     // let escapedText = text.toLowerCase().replace(/[^\w]+/g, "-"),
@@ -131,7 +131,7 @@ function getMDEditOption() {
     return `<code class="code">\`${code}\` </code>`;
   };
 
-  rendererMD.listitem = function(text) {
+  rendererMD.listitem = function (text) {
     // <p><a href="https://github.com/feflow/feflow">Feflow</a></p>
     console.log("listitem string", text);
     // let escapedText = text.toLowerCase().replace(/[^\w]+/g, "-"),
@@ -144,7 +144,7 @@ function getMDEditOption() {
   };
   return {
     renderer: rendererMD,
-    highlight: function(code) {
+    highlight: function (code) {
       return hljs.highlightAuto(code).value;
     },
     gfm: true,
