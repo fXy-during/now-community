@@ -1,0 +1,14 @@
+#about-container {
+    span {
+        width: 32px;
+        height: 32px;
+        display: inline-block;
+        img {
+            width: 32px;
+            height: 32px;
+            opacity: 0.1;
+            transition: all .5s ease-out;
+        }
+        transition: all .3s; // filter:alpha(opacity:30);
+    }
+}
